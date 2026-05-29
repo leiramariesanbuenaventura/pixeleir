@@ -8,8 +8,20 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-montserrat);
+  /* Creates a 'font-display' utility class using your uploaded font */
+  --font-display: var(--font-display-font);
+
+  /* Custom Fonts */
+  --font-gordon: var(--font-gordon-font);
+  --font-dreams: var(--font-dreams-font);
+  --font-rcdemo: var(--font-rcdemo-font);
+
+  /* Palette */
+  --color-primary: #004fff; /* BRIGHT BLUE */
+  --color-secondary: #0037c4; /* DARK BLUE */
+  --color-accent: #f3b90c; /* YELLOW */
+  --color-accent-light: #fffdf4; /* LIGHT YELLOW */
 }
 
 @media (prefers-color-scheme: dark) {
@@ -22,5 +34,5 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-gordon-font), Arial, Helvetica, sans-serif;
 }
