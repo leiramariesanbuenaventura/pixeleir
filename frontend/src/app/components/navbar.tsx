@@ -56,7 +56,7 @@ export default function Navbar() {
           className="flex-shrink-0 flex items-center justify-center w-9 h-9 rounded-full transition-transform duration-150 hover:scale-105 mx-4"
           
         >
-          <img src="svg/icon-face-white.svg" alt="Contact" className="w-7 h-7 object-contain" />
+          {/* <img src="svg/icon-face-white.svg" alt="Contact" className="w-7 h-7 object-contain" /> */}
         </a>
 
       </div>

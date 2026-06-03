@@ -1,0 +1,43 @@
+.fallingTextContainer {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70%;
+  height: 100%;
+  z-index: 1;
+}
+
+.fallingTextTarget {
+  position: relative;
+  display: block;        /* was inline-block, which collapsed height */
+  width: 100%;
+  font-family:montserrat;
+  font-size: 1rem;
+}
+.word {
+  position: absolute;
+  display: inline-block;
+  margin: 0 2px;
+  user-select: none;
+  white-space: nowrap;
+  transform-origin: center center;
+
+  /* pill styles */
+  background-color: #2563eb;
+  color: white;
+  padding: 0.70em 1em;
+  border-radius: 999px;
+}
+.highlighted {
+  background-color: #f5a623;
+  color: #000;
+  font-weight: normal;
+}
+.fallingTextCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  pointer-events: none;
+}

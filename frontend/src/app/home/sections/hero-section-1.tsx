@@ -5,7 +5,7 @@ import TextScrollMarquee from "../../components/marquee-text";
 
 export default function HeroSection1() {
   return (
-    <section className="relative text-white overflow-hidden min-h-screen flex flex-col">
+    <section className="relative text-white bg-[#000027] overflow-hidden min-h-screen flex flex-col">
       {/* ── Main text block — truly centered in the full viewport ── */}
       <div className="absolute inset-0 flex flex-col items-center justify-center px-2">
         {/* ROW 1 — SERVING */}
@@ -14,20 +14,7 @@ export default function HeroSection1() {
             src="/svg/illus-star.svg"
             alt=""
             aria-hidden="true"
-            className="absolute z-20"
-            style={{
-              width: "10vw",
-              maxWidth: "60px",
-              left: "25%",
-              top: "2%",
-              transform: "translateY(-10%)",
-            }}
-          />
-          <img
-            src="/svg/illus-star.svg"
-            alt=""
-            aria-hidden="true"
-            className="absolute z-20"
+            className="absolute z-20 hidden md:block"
             style={{
               width: "10vw",
               maxWidth: "60px",
@@ -37,10 +24,10 @@ export default function HeroSection1() {
             }}
           />
           <img
-            src="/svg/illus-serving.svg"
+            src="/svg/illus-mascot-wink.svg"
             alt=""
             aria-hidden="true"
-            className="absolute z-20"
+            className="absolute z-20 hidden md:block"
             style={{
               width: "12vw",
               maxWidth: "130px",
@@ -53,7 +40,7 @@ export default function HeroSection1() {
             src="/svg/illus-star.svg"
             alt=""
             aria-hidden="true"
-            className="absolute z-20"
+            className="absolute z-20 hidden md:block"
             style={{
               width: "10vw",
               maxWidth: "60px",
@@ -66,7 +53,7 @@ export default function HeroSection1() {
             src="/svg/illus-star.svg"
             alt=""
             aria-hidden="true"
-            className="absolute z-20"
+            className="absolute z-20 hidden md:block"
             style={{
               width: "10vw",
               maxWidth: "60px",
@@ -79,7 +66,7 @@ export default function HeroSection1() {
             src="/svg/illus-star.svg"
             alt=""
             aria-hidden="true"
-            className="absolute z-20"
+            className="absolute z-20 hidden md:block"
             style={{
               width: "10vw",
               maxWidth: "60px",
@@ -111,10 +98,10 @@ export default function HeroSection1() {
                 className="absolute inset-0"
               />
               <img
-                src="/svg/illus-tomorrow.svg"
+                src="/svg/illus-mascot.svg"
                 alt=""
                 aria-hidden="true"
-                className="absolute z-1"
+                className="absolute z-1 hidden md:block"
                 style={{
                   width: "12vw",
                   maxWidth: "130px",
@@ -143,7 +130,7 @@ export default function HeroSection1() {
             src="/svg/illus-star.svg"
             alt=""
             aria-hidden="true"
-            className="absolute z-20"
+            className="absolute z-20 hidden md:block"
             style={{
               width: "10vw",
               maxWidth: "60px",
@@ -153,10 +140,10 @@ export default function HeroSection1() {
             }}
           />
           <img
-            src="/svg/illus-techtoday.svg"
+            src="/svg/illus-mascot-squint.svg"
             alt=""
             aria-hidden="true"
-            className="relative z-20 self-end"
+            className="relative z-20 self-end hidden md:block"
             style={{
               width: "10vw",
               maxWidth: "113px",

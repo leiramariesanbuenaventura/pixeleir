@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import GradualBlur from "./home/animations/gradual-blur";
+import GradualBlur from "./components/animations/gradual-blur";
 import Navbar from "./components/navbar";
 import Footer from "./components/footer";
 import { Montserrat } from "next/font/google";
@@ -44,8 +44,11 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col font-sans">
         <Navbar />
 
-        
         {children}
+
+        {/* Footer should be inside <body> to avoid hydration errors. */}
+        <Footer />
+
         {/* Bottom edge blur
         <GradualBlur
           position="bottom"
@@ -57,7 +60,6 @@ export default function RootLayout({
           zIndex={50}
         /> */}
       </body>
-      <Footer />
     </html>
   );
 }
