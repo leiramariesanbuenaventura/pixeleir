@@ -2,9 +2,12 @@ import type { Metadata } from "next";
 import GradualBlur from "./components/animations/gradual-blur";
 import Navbar from "./components/navbar";
 import Footer from "./components/footer";
-import { Montserrat } from "next/font/google";
+import { Montserrat, Geist } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
+import { cn } from "@/lib/utils";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -37,7 +40,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${montserrat.variable} ${gordon.variable} ${dreams.variable} ${rcdemo.variable} h-full antialiased`}
+      className={cn("h-full", "antialiased", montserrat.variable, gordon.variable, dreams.variable, rcdemo.variable, "font-sans", geist.variable)}
     >
       {/* Setting Montserrat as the default font-sans for the entire app */}
 

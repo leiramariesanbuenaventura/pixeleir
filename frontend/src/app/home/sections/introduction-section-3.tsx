@@ -3,33 +3,39 @@ import FallingText from "@/app/components/animations/falling-text";
 
 export default function IntroSection3() {
   return (
-    <section className="relative text-white w-full h-screen flex flex-col bg-[#000027] overflow-hidden">
-      {/* Hero content — takes up remaining space, vertically centered */}
+    <section
+      className="relative text-white w-full flex flex-col bg-[#000027]"
+      style={{ height: "100%", overflow: "hidden" }}
+    >
       <div className="flex-1 flex flex-col items-center justify-center gap-4 z-10">
-        <div className="flex flex-row items-center justify-center]">
-          <div
-            className="flex flex-col items-start gap-2 text-left uppercase tracking-[-0.12em] text-7xl font-bold"
-            style={{
-              background: "linear-gradient(to right, #ffffff, #bfdbfe)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-            }}
-          >
-            <p
-              className="text-xs sm:text-sm tracking-normal font-sans normal-case my-3"
-              style={{ WebkitTextFillColor: "rgba(255,255,255,0.75)" }}
-            >
+        <div className="flex flex-row items-center justify-center">
+          <div className="flex flex-col items-start gap-2 text-left uppercase tracking-[-0.12em] text-7xl font-bold">
+            
+            {/* Plain white — no gradient */}
+            <p className="text-xs sm:text-sm tracking-normal font-sans normal-case my-3 text-white">
               Hey there again, I'm
             </p>
-            <h2>Leira</h2>
-            <h2>Marie</h2>
+
+            {/* Single wrapper so gradient spans both lines */}
+            <div
+              style={{
+                background: "linear-gradient(to right, #3533cd, #00071b)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+                lineHeight: 1,
+              }}
+            >
+              <h2>Leira</h2>
+              <h2>Marie</h2>
+            </div>
+
           </div>
           <img
-            src="/svg/illus-mascot.svg"
+            src="/svg/illus-mascot-smile.svg"
             alt=""
             aria-hidden="true"
-            className="relative z-20"
+            className="relative z-20 hidden md:block"
             style={{
               width: "18vw",
               maxWidth: "500px",
@@ -48,7 +54,6 @@ export default function IntroSection3() {
         </p>
       </div>
 
-      {/* Falling Text — anchored to bottom */}
       <div className="w-full absolute z-20 top-0 bottom-0 left-0 h-full">
         <FallingText
           text="UI/UXDesigner Prototyping Wireframing MobileDevelopment WebsiteDevelopment SoftwareDevelopment FrontendDevelopment ProductDesign DesignThinking BackendDevelopment QualityAssurance"

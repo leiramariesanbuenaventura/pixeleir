@@ -32,30 +32,37 @@ interface CircularTextProps {
   spinDuration?: number;
   onHover?: HoverBehavior;
   className?: string;
+  /** Diameter in px. Defaults to 100. All geometry derives from this. */
+  size?: number;
 }
-
-const circularTextStyle: React.CSSProperties = {
-  position: "relative",
-  width: "100px",
-  height: "100px",
-  borderRadius: "9000px",
-  color: "white",
-  fontFamily: "var(--font-montserrat), Arial, Helvetica, sans-serif",
-  fontSize: "0.7rem",
-  fontWeight: 900,
-  letterSpacing: "0.3em",
-  textTransform: "uppercase",
-};
 
 const CircularText: React.FC<CircularTextProps> = ({
   text,
   spinDuration = 20,
   onHover = "speedUp",
   className = "",
+  size = 100,
 }) => {
   const letters = Array.from(text || "");
   const controls = useAnimation();
   const rotation = useMotionValue(0);
+
+  // Derive everything from size so geometry stays correct at any diameter
+  const radius = size / 2;           // letter transformOrigin distance from centre
+  const fontSize = size * 0.007;     // ~0.7rem at size=100, scales linearly
+
+  const circularTextStyle: React.CSSProperties = {
+    position: "relative",
+    width: size,
+    height: size,
+    borderRadius: "9000px",
+    color: "white",
+    fontFamily: "var(--font-montserrat), Arial, Helvetica, sans-serif",
+    fontSize: `${fontSize}rem`,
+    fontWeight: 900,
+    letterSpacing: "0.3em",
+    textTransform: "uppercase",
+  };
 
   useEffect(() => {
     const start = rotation.get();
@@ -133,7 +140,7 @@ const CircularText: React.FC<CircularTextProps> = ({
               position: "absolute",
               left: "50%",
               top: 0,
-              transformOrigin: "0 50px",
+              transformOrigin: `0 ${radius}px`,   // derived from size, not hardcoded 50px
               transform,
               WebkitTransform: transform,
             }}

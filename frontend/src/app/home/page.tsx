@@ -1,13 +1,15 @@
 "use client";
 
 import { useLayoutEffect } from "react";
-import { SmoothScrollProvider } from "@/app/components/smooth-scroll-provider"; // adjusted path
+import { SmoothScrollProvider } from "@/app/components/smooth-scroll-provider";
 import HeroSection1 from "./sections/hero-section-1";
 import SneakPeekSection2 from "./sections/sneak-peek-2";
 import IntroSection3 from "./sections/introduction-section-3";
 import ToolsUsedSection4 from "./sections/tools-used-section-4";
 import SkillsSection5 from "./sections/skills-section-5";
-import HorizontalScrollSection from "@/app/components/animations/horizontal-scroll"; // adjusted path
+import EducationSection from "./sections/education-section-6";
+import WorksSection from "./sections/works-section-7";
+import HorizontalScrollSection from "@/app/components/animations/horizontal-scroll";
 import Grainient from "../components/granient-background";
 
 export default function HomePage() {
@@ -50,15 +52,12 @@ export default function HomePage() {
           />
         </div>
 
+        {/* Hero */}
         <section className="home-snap-section relative z-10">
           <HeroSection1 />
         </section>
 
-        {/*
-          HorizontalScrollSection manages its own GSAP pin.
-          The useLenis() hook inside it can call stop()/start() around
-          the horizontal drag to prevent Lenis fighting the pin.
-        */}
+        {/* Horizontal scroll: Sneak Peek + Intro */}
         <section
           className="home-snap-section relative z-10"
           style={{ display: "block", backgroundColor: "#000027" }}
@@ -73,12 +72,24 @@ export default function HomePage() {
           </HorizontalScrollSection>
         </section>
 
+        {/* Tools */}
         <section className="home-snap-section relative z-10">
           <ToolsUsedSection4 />
         </section>
 
+        {/* Skills */}
         <section className="home-snap-section relative z-10">
           <SkillsSection5 />
+        </section>
+
+        {/* Education — new */}
+        <section className="home-snap-section relative z-10">
+          <EducationSection />
+        </section>
+
+        {/* Works / Portfolio — new */}
+        <section className="home-snap-section relative z-10">
+          <WorksSection />
         </section>
       </main>
     </SmoothScrollProvider>
