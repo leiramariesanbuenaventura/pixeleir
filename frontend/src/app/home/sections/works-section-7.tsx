@@ -89,15 +89,23 @@ const works: WorkItem[] = [
   },
 ];
 
-const categories = ["All", "Web Development", "UI/UX Design", "Application Development", "Graphic Design", "Game Development"];
+const categories = [
+  "All",
+  "Web Development",
+  "UI/UX Design",
+  "Application Development",
+  "Graphic Design",
+  "Game Development",
+];
 
 export default function WorksSection() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [hovered, setHovered] = useState<number | null>(null);
 
-  const filtered = activeCategory === "All"
-    ? works
-    : works.filter((w) => w.category === activeCategory);
+  const filtered =
+    activeCategory === "All"
+      ? works
+      : works.filter((w) => w.category === activeCategory);
 
   return (
     <section className="relative text-white bg-[#000027] overflow-hidden min-h-screen flex flex-col justify-center py-20 px-4">
@@ -114,17 +122,15 @@ export default function WorksSection() {
       <div className="w-full max-w-6xl mx-auto z-10">
         {/* Section header */}
         <div className="flex flex-col gap-2 mb-10">
-          <span className="font-sans text-xs font-semibold tracking-widest uppercase text-[#3533cd]">
+          <span className="font-sans text-sm lg:text-sm md:text-xs font-bold text-[#3533cd] my-3">
             Selected Works
           </span>
-          <h2
-            className="font-gordon font-black uppercase leading-none tracking-[-0.08em] text-white"
-            style={{ fontSize: "clamp(2.5rem, 7vw, 5rem)" }}
-          >
-            My Projects
+          <h2 className="font-gordon font-black text-7xl leading-none tracking-[-0.08em] text-white">
+            Projects <span className="font-dreams text-[#3533cd]">coded</span>
           </h2>
-          <p className="font-sans text-sm text-white/50 max-w-sm mt-1">
-            A collection of work across design, development, and everything in between.
+          <p className="font-sans text-sm text-white/50 w-full my-3">
+            A collection of work across design, development, and everything in
+            between.
           </p>
         </div>
 
@@ -136,9 +142,12 @@ export default function WorksSection() {
               onClick={() => setActiveCategory(cat)}
               className="font-sans text-xs font-semibold tracking-wide px-4 py-2 rounded-full border transition-all duration-200"
               style={{
-                backgroundColor: activeCategory === cat ? "#3533cd" : "transparent",
-                borderColor: activeCategory === cat ? "#3533cd" : "rgba(255,255,255,0.12)",
-                color: activeCategory === cat ? "#ffffff" : "rgba(255,255,255,0.5)",
+                backgroundColor:
+                  activeCategory === cat ? "#3533cd" : "transparent",
+                borderColor:
+                  activeCategory === cat ? "#3533cd" : "rgba(255,255,255,0.12)",
+                color:
+                  activeCategory === cat ? "#ffffff" : "rgba(255,255,255,0.5)",
               }}
             >
               {cat}
@@ -153,10 +162,13 @@ export default function WorksSection() {
               key={work.id}
               className="relative rounded-2xl overflow-hidden cursor-default transition-all duration-500 group"
               style={{
-                transform: hovered === work.id ? "translateY(-6px) scale(1.01)" : "translateY(0) scale(1)",
-                boxShadow: hovered === work.id
-                  ? `0 20px 60px -12px ${work.accent}55`
-                  : "0 4px 24px -4px rgba(0,0,0,0.4)",
+                transform:
+                  hovered === work.id
+                    ? "translateY(-6px) scale(1.01)"
+                    : "translateY(0) scale(1)",
+                // boxShadow: hovered === work.id
+                //   ? `0 20px 60px -12px ${work.accent}55`
+                //   : "0 4px 24px -4px rgba(0,0,0,0.4)",
               }}
               onMouseEnter={() => setHovered(work.id)}
               onMouseLeave={() => setHovered(null)}
@@ -182,7 +194,11 @@ export default function WorksSection() {
                 {/* Category pill */}
                 <div
                   className="absolute bottom-3 left-3 font-sans text-[10px] font-semibold tracking-wide uppercase px-2.5 py-1 rounded-full"
-                  style={{ backgroundColor: `${work.accent}33`, color: work.accent === "#f0b429" ? "#f0b429" : "#fff", border: `1px solid ${work.accent}44` }}
+                  style={{
+                    backgroundColor: `${work.accent}33`,
+                    color: work.accent === "#f0b429" ? "#f0b429" : "#fff",
+                    border: `1px solid ${work.accent}44`,
+                  }}
                 >
                   {work.category}
                 </div>
@@ -193,12 +209,16 @@ export default function WorksSection() {
                 className="p-5 flex flex-col gap-3 border border-t-0"
                 style={{
                   backgroundColor: "#03051a",
-                  borderColor: hovered === work.id ? `${work.accent}30` : "rgba(255,255,255,0.06)",
+                  borderColor:
+                    hovered === work.id
+                      ? `${work.accent}30`
+                      : "rgba(255,255,255,0.06)",
                   borderTop: "none",
                   borderRadius: "0 0 1rem 1rem",
                 }}
               >
-                <h3 className="font-gordon font-bold uppercase tracking-[-0.04em] text-white leading-tight"
+                <h3
+                  className="font-gordon font-bold uppercase tracking-[-0.04em] text-white leading-tight"
                   style={{ fontSize: "clamp(1rem, 2vw, 1.15rem)" }}
                 >
                   {work.title}
@@ -222,12 +242,23 @@ export default function WorksSection() {
 
                 {/* View arrow */}
                 <div className="flex items-center justify-between mt-2 pt-3 border-t border-white/5">
-                  <span className="font-sans text-xs text-white/30">View Project</span>
+                  <span className="font-sans text-xs text-white/30">
+                    View Project
+                  </span>
                   <div
                     className="w-7 h-7 rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110"
-                    style={{ backgroundColor: `${work.accent}22`, border: `1px solid ${work.accent}44` }}
+                    style={{
+                      backgroundColor: `${work.accent}22`,
+                      border: `1px solid ${work.accent}44`,
+                    }}
                   >
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
+                    <svg
+                      width="12"
+                      height="12"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
                       style={{ color: work.accent }}
                     >
                       <path d="M7 17L17 7M17 7H7M17 7v10" />

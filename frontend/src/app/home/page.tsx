@@ -79,7 +79,7 @@ export default function HomePage() {
 
         {/* Skills */}
         <section className="home-snap-section relative z-10">
-          <SkillsSection5 />
+          <SkillsSection5/>
         </section>
 
         {/* Education — new */}

@@ -1,276 +1,184 @@
 "use client";
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
+import {
+  Code2,
+  Database,
+  Layout,
+  Terminal,
+  Cpu,
+  Smartphone,
+  Globe,
+  PenTool,
+  GitBranch,
+  Braces,
+  Server,
+  Layers,
+  FileCode,
+  Feather,
+} from "lucide-react";
 
-import React, { Fragment } from "react";
-// Adjust this path based on where you placed 'logo-loop.tsx' and other imported components
-import LogoLoop, { LogoItem } from "../../components/logo-loop";
-import MagicBento from "../../components/magic-bento";
-
-// Define text part structure
-export interface TextPart {
-  text: string;
-  bold?: boolean;
-  italic?: boolean;
-  color?: string;
-  muted?: boolean;
-}
-
-// Define column structure
-export interface Column {
-  heading: string;
-  headingColor: string;
-  accentColor: string;
-  actionIconColor: string;
+type Category = {
+  label: string;
+  icon: React.ReactNode;
   description: string;
-  items?: { parts: TextPart[] }[];
-  twoCol?: string[][];
-  tools?: string[];
-}
+  color: { bg: string; bar: string; accent: string; glow: string };
+  skills: string[];
+};
 
-// Revised column data to preserve text and add new structural elements
-const columns: Column[] = [
+const categories: Category[] = [
   {
-    heading: "Designing",
-    headingColor: "#3b5bff", // User's Blue
-    accentColor: "#3b5bff",
-    actionIconColor: "#ffffff", // Complementary White for action icon text
-    description: "Layout Design, Logo Making, UI/UX, Website and Mobile Design.",
-    items: [
-      { parts: [{ text: "Layout ", bold: true }, { text: "Design" }] },
-      { parts: [{ text: "Logo ", bold: true }, { text: "Making" }] },
-      { parts: [{ text: "UI/UX" }] },
-      { parts: [{ text: "Website and Mobile ", bold: true }, { text: "Design" }] },
-    ],
+    label: "Frontend",
+    icon: <Layout className="w-6 h-6" />,
+    description: "Building fast, responsive, and accessible user interfaces with modern frameworks and tools.",
+    color: {
+      bg: "rgba(53,2,228,0.12)",
+      bar: "from-[#3502e4] to-[#8b7aff]",
+      accent: "#8b7aff",
+      glow: "rgba(53,2,228,0.28)",
+    },
+    skills: ["React", "Next.js", "TypeScript", "Tailwind CSS", "HTML & CSS", "Framer Motion"],
   },
   {
-    heading: "Development",
-    headingColor: "#f0b429", // User's Yellow
-    accentColor: "#f0b429",
-    actionIconColor: "#f0b429", // Complementary Yellow for action icon text
-    description: "Code and frameworks for web and mobile. Toolsets and logic.",
-    twoCol: [
-      ["HTML", "MySQL"],
-      ["CSS", "PHP"],
-      ["Java", "C#"],
-    ],
-    tools: ["Visual Studio Code", "Android Studio", "Unity", "Microsoft Visual Studio 2022"],
+    label: "Backend",
+    icon: <Server className="w-6 h-6" />,
+    description: "Designing reliable server-side systems, REST APIs, and scalable database architectures.",
+    color: {
+      bg: "rgba(6,182,212,0.12)",
+      bar: "from-[#0891b2] to-[#67e8f9]",
+      accent: "#67e8f9",
+      glow: "rgba(6,182,212,0.25)",
+    },
+    skills: ["Node.js", "Express.js", "NestJS", "PostgreSQL", "MySQL", "MongoDB"],
   },
   {
-    heading: "Languages",
-    headingColor: "#3b5bff", // User's Blue
-    accentColor: "#3b5bff",
-    actionIconColor: "#ffffff", // Complementary White for action icon text
-    description: "Advanced proficiency in English and native Filipino communication.",
-    items: [
-      {
-        parts: [
-          { text: "English ", bold: true, color: "#3b5bff" },
-          { text: "(Advanced Proficiency)", italic: true, muted: true },
-        ],
-      },
-      {
-        parts: [
-          { text: "Filipino ", bold: true, color: "#3b5bff" },
-          { text: "(Native)", italic: true, muted: true },
-        ],
-      },
-    ],
+    label: "Languages",
+    icon: <Braces className="w-6 h-6" />,
+    description: "Fluent in the core languages that power modern web development, front to back.",
+    color: {
+      bg: "rgba(168,85,247,0.12)",
+      bar: "from-[#9333ea] to-[#e879f9]",
+      accent: "#e879f9",
+      glow: "rgba(168,85,247,0.25)",
+    },
+    skills: ["JavaScript", "TypeScript", "HTML", "CSS", "SQL"],
+  },
+  {
+    label: "Tools",
+    icon: <GitBranch className="w-6 h-6" />,
+    description: "Proficient with the tools and workflows that keep projects organized, designed, and shipped.",
+    color: {
+      bg: "rgba(20,184,166,0.12)",
+      bar: "from-[#0d9488] to-[#5eead4]",
+      accent: "#5eead4",
+      glow: "rgba(20,184,166,0.25)",
+    },
+    skills: ["Git & GitHub", "Figma", "VS Code", "UI/UX Design", "Prototyping"],
   },
 ];
 
-const TOOL_LOGOS: LogoItem[] = [
-  { src: "/icon/logo-androidstudio.svg", alt: "Android Studio" },
-  { src: "/icon/logo-canva.svg", alt: "Canva" },
-  { src: "/icon/logo-css.svg", alt: "CSS" },
-  { src: "/icon/logo-expogo.svg", alt: "Expo Go" },
-  { src: "/icon/logo-figma.svg", alt: "Figma" },
-  { src: "/icon/logo-html.svg", alt: "HTML" },
-  { src: "/icon/logo-java.svg", alt: "Java" },
-  { src: "/icon/logo-js.svg", alt: "JavaScript" },
-  { src: "/icon/logo-mysql.svg", alt: "MySQL" },
-  { src: "/icon/logo-tailwindcss.svg", alt: "Tailwind CSS" },
-  { src: "/icon/logo-unity.svg", alt: "Unity" },
-  { src: "/icon/logo-vscode.svg", alt: "VS Code" },
-];
-
-export default function RevisedSkillsSection() {
-  // Shared structural base for our glassmorphism layout classes
-  const cardBaseClasses = 
-    "relative rounded-2xl p-6 border transition-all duration-300 ease-out " +
-    "hover:scale-[1.01] shadow-[0_0_0_0_rgba(59,91,255,0)] flex flex-col gap-6 group cursor-default font-sans overflow-hidden";
+function CategoryColumn({ cat, index }: { cat: Category; index: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-50px" });
 
   return (
-    <section className="relative text-white bg-[#000027] overflow-hidden min-h-screen flex flex-col justify-center py-3">
-      
-      {/* Ambient Deep Glow in Background */}
-      <div 
-        className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] height-[500px] bg-[#3b5bff]/10 rounded-full blur-[120px] pointer-events-none" 
-        aria-hidden="true" 
-      />
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 28 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.5, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
+      className="flex flex-col gap-5"
+    >
+      {/* Icon */}
+      <div
+        className="w-14 h-14 rounded-2xl flex items-center justify-center shrink-0"
+        style={{
+          background: cat.color.bg,
+          boxShadow: `0 0 0 1px ${cat.color.glow}`,
+        }}
+      >
+        <span className={`bg-gradient-to-br ${cat.color.bar} bg-clip-text text-transparent`}>
+          {cat.icon}
+        </span>
+      </div>
 
-      {/* ── Top Grid: Revised Skill Cards ── */}
-      <div className="w-full max-w-6xl mx-auto px-8 mb-16 z-10">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {/* Header */}
+      <div className="flex flex-col gap-2 mb-3">
+        <h3 className="text-white/90 font-bold text-lg leading-snug">{cat.label}</h3>
+        <p className="text-white/40 text-[13px] leading-relaxed font-sans">{cat.description}</p>
+      </div>
 
-          {/* Card 1: Designing */}
-          <div 
-            className={`${cardBaseClasses} border-white/10 bg-[radial-gradient(100%_100%_at_0%_0%,rgba(59,91,255,0.06)_0%,#000027_100%)] hover:border-[#3b5bff]/40 hover:shadow-[0_0_25px_-5px_rgba(59,91,255,0.25)]`}
+      {/* Skills pills */}
+      <div className="flex flex-wrap gap-2">
+        {cat.skills.map((skill, i) => (
+          <motion.span
+            key={skill}
+            initial={{ opacity: 0, scale: 0.88 }}
+            animate={inView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ duration: 0.3, delay: index * 0.1 + i * 0.055 + 0.2 }}
+            className="px-3 py-1 rounded-full text-xs font-medium font-sans border transition-colors duration-200"
+            style={{
+              background: cat.color.bg,
+              borderColor: cat.color.glow,
+              color: cat.color.accent,
+            }}
           >
-            <div className="flex flex-col gap-2">
-              <div className="flex items-center justify-between">
-                <h2 className="uppercase tracking-wide font-extrabold text-xl lg:text-2xl text-[#3b5bff]">
-                  {columns[0].heading}
-                </h2>
-                {/* Colored Action Icon */}
-                <div 
-                  className="flex items-center justify-center rounded-full w-8 h-8 shrink-0"
-                  style={{ backgroundColor: columns[0].accentColor, color: columns[0].actionIconColor }}
-                >
-                  <span className="text-xl">▼</span>
-                </div>
-              </div>
-              <div className="h-[2px] w-12 rounded-full bg-[#3b5bff]" />
-            </div>
+            {skill}
+          </motion.span>
+        ))}
+      </div>
+    </motion.div>
+  );
+}
 
-            <p className="text-sm font-sans leading-snug tracking-wide text-white/70">
-              {columns[0].description}
-            </p>
-            
-            {/* Inner Content Area */}
-            <div className="bg-white/5 rounded-xl p-6 relative flex flex-col gap-6 overflow-hidden">
-                <ul className="flex flex-col gap-3 z-10">
-                {columns[0].items?.map((item, i) => (
-                    <li key={i} className="text-sm leading-snug tracking-wide flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#3b5bff]/40 shrink-0" />
-                    <div className="text-white/70 font-sans">
-                        {item.parts.map((part, j) =>
-                        part.bold ? (
-                            <strong key={j} className="font-semibold text-white">{part.text}</strong>
-                        ) : (
-                            <span key={j}>{part.text}</span>
-                        )
-                        )}
-                    </div>
-                    </li>
-                ))}
-                </ul>
+export default function SkillsSection() {
+  const headerRef = useRef<HTMLDivElement>(null);
+  const headerInView = useInView(headerRef, { once: true, margin: "-60px" });
 
-                {/* Rich illustration content integrated */}
-                <div className="absolute inset-0 z-0 pointer-events-none opacity-40">
-                  <img src="/svg/illus-design-integrated.svg" alt="" className="absolute -bottom-10 -right-10 w-40" />
-                </div>
-            </div>
-          </div>
+  return (
+    <section id="skills" className="py-20 sm:py-28 md:py-36 px-4 sm:px-6 bg-[#000027]">
+      <div className="max-w-6xl mx-auto">
 
-          {/* Card 2: Development */}
-          <div 
-            className={`${cardBaseClasses} border-white/10 bg-[radial-gradient(100%_100%_at_0%_0%,rgba(240,180,41,0.05)_0%,#000027_100%)] hover:border-[#f0b429]/40 hover:shadow-[0_0_25px_-5px_rgba(240,180,41,0.2)]`}
+        {/* Header */}
+        <div ref={headerRef} className="text-center mb-16 sm:mb-20">
+          <motion.p
+            initial={{ opacity: 0, y: 14 }}
+            animate={headerInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5 }}
+            className="font-mono text-xs text-[#8b7aff]/60 uppercase tracking-widest mb-3"
           >
-            <div className="flex flex-col gap-2">
-              <div className="flex items-center justify-between">
-                <h2 className="uppercase tracking-wide font-extrabold text-xl lg:text-2xl text-[#f0b429]">
-                  {columns[1].heading}
-                </h2>
-                {/* Colored Action Icon */}
-                <div 
-                  className="flex items-center justify-center rounded-full w-8 h-8 shrink-0"
-                  style={{ backgroundColor: columns[1].accentColor, color: columns[1].actionIconColor }}
-                >
-                  <span className="text-xl">▼</span>
-                </div>
-              </div>
-              <div className="h-[2px] w-12 rounded-full bg-[#f0b429]" />
-            </div>
-
-            <p className="text-sm font-sans leading-snug tracking-wide text-white/70">
-              {columns[1].description}
-            </p>
-
-            {/* Inner Content Area with Accent Background Band */}
-            <div className="bg-[#f0b429]/5 rounded-xl p-6 relative flex flex-col gap-6 overflow-hidden">
-                <div className="grid grid-cols-2 gap-x-6 gap-y-2 border-b border-white/10 pb-4 z-10">
-                {columns[1].twoCol?.map((row, i) => (
-                    <Fragment key={i}>
-                    <span className="text-sm font-sans font-semibold tracking-wide text-white/90">{row[0]}</span>
-                    <span className="text-sm font-sans font-semibold tracking-wide text-white/90">{row[1]}</span>
-                    </Fragment>
-                ))}
-                </div>
-
-                <ul className="flex flex-col gap-2 z-10">
-                {columns[1].tools?.map((tool, i) => (
-                    <li key={i} className="text-xs text-white/50 tracking-wide font-sans flex items-center gap-2">
-                    <span className="w-1 h-1 rounded-full bg-[#f0b429]/40 shrink-0" />
-                    <span>{tool}</span>
-                    </li>
-                ))}
-                </ul>
-
-                {/* Rich illustration content integrated */}
-                <div className="absolute inset-0 z-0 pointer-events-none opacity-40">
-                  <img src="/svg/illus-dev-integrated.svg" alt="" className="absolute -bottom-10 -right-10 w-40" />
-                </div>
-            </div>
-          </div>
-
-          {/* Card 3: Languages */}
-          <div 
-            className={`${cardBaseClasses} border-white/10 bg-[radial-gradient(100%_100%_at_0%_0%,rgba(59,91,255,0.06)_0%,#000027_100%)] hover:border-[#3b5bff]/40 hover:shadow-[0_0_25px_-5px_rgba(59,91,255,0.25)]`}
+            02 — Skills
+          </motion.p>
+          <motion.h2
+            initial={{ opacity: 0, y: 22 }}
+            animate={headerInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.55, delay: 0.05 }}
+            className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 leading-tight"
           >
-            <div className="flex flex-col gap-2">
-              <div className="flex items-center justify-between">
-                <h2 className="uppercase tracking-wide font-extrabold text-xl lg:text-2xl text-[#3b5bff]">
-                  {columns[2].heading}
-                </h2>
-                {/* Colored Action Icon */}
-                <div 
-                  className="flex items-center justify-center rounded-full w-8 h-8 shrink-0"
-                  style={{ backgroundColor: columns[2].accentColor, color: columns[2].actionIconColor }}
-                >
-                  <span className="text-xl">▼</span>
-                </div>
-              </div>
-              <div className="h-[2px] w-12 rounded-full bg-[#3b5bff]" />
-            </div>
-
-            <p className="text-sm font-sans leading-snug tracking-wide text-white/70">
-              {columns[2].description}
-            </p>
-
-            {/* Inner Content Area */}
-            <div className="bg-white/5 rounded-xl p-6 relative flex flex-col gap-6 overflow-hidden">
-                <ul className="flex flex-col gap-5 z-10">
-                {columns[2].items?.map((item, i) => (
-                    <li key={i} className="font-sans text-sm flex flex-col gap-1 tracking-wide">
-                    {item.parts.map((part, j) => {
-                        if (part.bold) return <strong key={j} className="font-extrabold uppercase text-xs tracking-wider text-[#3b5bff]">{part.text}</strong>;
-                        if (part.italic) return <span key={j} className="text-white/60 text-xs leading-relaxed">{part.text}</span>;
-                        return <span key={j} className="text-white/70">{part.text}</span>;
-                    })}
-                    </li>
-                ))}
-                </ul>
-
-                {/* Rich illustration content integrated */}
-                <div className="absolute inset-0 z-0 pointer-events-none opacity-40">
-                  <img src="/svg/illus-langs-integrated.svg" alt="" className="absolute -bottom-10 -right-10 w-40" />
-                </div>
-            </div>
-          </div>
-
+            Technical{" "}
+            <span className="bg-gradient-to-r from-[#3502e4] to-[#000027] bg-clip-text text-transparent">
+              Arsenal
+            </span>
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 14 }}
+            animate={headerInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5, delay: 0.12 }}
+            className="text-white/45 font-sans text-sm sm:text-base max-w-md mx-auto leading-relaxed"
+          >
+            Tools and technologies I use to build comprehensive,
+            high-performance digital experiences.
+          </motion.p>
         </div>
-      </div>
 
-      {/* ── Divider ── */}
-      <div className="w-full max-w-6xl mx-auto px-8 z-10">
-        <div className="h-[1px] w-full bg-white/5 rounded-full" />
-      </div>
+        {/* 4-column grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 sm:gap-8">
+          {categories.map((cat, i) => (
+            <CategoryColumn key={cat.label} cat={cat} index={i} />
+          ))}
+        </div>
 
-      {/* ── Bottom: MagicBento & LogoLoop ── */}
-      <div className="w-full max-w-6xl mx-auto px-8 pt-12 pb-4 z-10 flex flex-col gap-12">
-        <MagicBento glowColor="59, 91, 255" />
-        
       </div>
-
     </section>
   );
 }

@@ -141,9 +141,14 @@ export default function SneakPeekSection2() {
         </span>
 
         {/* Description */}
-        <p className="text-xs mt-14 sm:text-sm font-sans text-center max-w-xs sm:max-w-sm md:max-w-sm text-white/80 leading-relaxed">
+        {/* <p className="text-xs mt-14 sm:text-sm font-sans text-center max-w-xs sm:max-w-sm md:max-w-sm text-white/80 leading-relaxed">
           I may not be the first person to speak, but my ideas usually arrive{" "}
           <span className="font-bold text-[#004fff]">before my words do</span>.
+        </p> */}
+        {/* Description 2 */}
+        <p className="text-xs mt-14 sm:text-sm font-sans text-center max-w-xs sm:max-w-sm md:max-w-sm text-white/80 leading-relaxed">
+          Creative Developer · UI/UX Enthusiast · Problem Solver · Digital Dreamer{" "}
+          <span className="font-bold text-[#004fff]">Digital Dreamer</span>.
         </p>
 
         {/* GitHub & Email links */}
@@ -215,9 +220,10 @@ export default function SneakPeekSection2() {
               <rect x="2" y="4" width="20" height="16" rx="2" />
               <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
             </svg>
-            <span className="hidden sm:inline">leiramariesanbuenaventura@gmail.com</span>
+            <span className="hidden sm:inline">
+              leiramariesanbuenaventura@gmail.com
+            </span>
           </a>
-          
         </div>
       </div>
     </section>
